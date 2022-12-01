@@ -91,18 +91,20 @@ class GraphSearchPolicy(nn.Module):
             X = torch.cat([E, H, Q], dim=-1)
 
         # MLP
+        #[2560,600]
         X = self.W1(X)
         X = F.relu(X)
         X = self.W1Dropout(X)
         X = self.W2(X)
         X2 = self.W2Dropout(X)
-
+        #[2560,400]
         def policy_nn_fun(X2, action_space):
             (r_space, e_space), action_mask = action_space
             A = self.get_action_embedding((r_space, e_space), kg)
             action_dist = F.softmax(
                 torch.squeeze(A @ torch.unsqueeze(X2, 2), 2) - (1 - action_mask) * ops.HUGE_INT, dim=-1)
             # action_dist = ops.weighted_softmax(torch.squeeze(A @ torch.unsqueeze(X2, 2), 2), action_mask)
+            # action_dist [40,40]
             return action_dist, ops.entropy(action_dist)
 
         def pad_and_cat_action_space(action_spaces, inv_offset):
@@ -156,6 +158,7 @@ class GraphSearchPolicy(nn.Module):
         else:
             init_action_embedding = self.get_action_embedding(init_action, kg)
         init_action_embedding.unsqueeze_(1)
+        # here init_action_embbeding is [batch,1,embbeding], 1 means length is 1
         # [num_layers, batch_size, dim]
         init_h = zeros_var_cuda([self.history_num_layers, len(init_action_embedding), self.history_dim])
         init_c = zeros_var_cuda([self.history_num_layers, len(init_action_embedding), self.history_dim])
@@ -173,10 +176,10 @@ class GraphSearchPolicy(nn.Module):
         def offset_path_history(p, offset):
             for i, x in enumerate(p):
                 if type(x) is tuple:
-                    new_tuple = tuple([_x[:, offset, :] for _x in x])
+                    new_tuple = tuple([_x[:, offset.long(), :] for _x in x])
                     p[i] = new_tuple
                 else:
-                    p[i] = x[offset, :]
+                    p[i] = x[offset.long(), :]
 
         # update action history
         if self.relation_only_in_path:

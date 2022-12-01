@@ -7,6 +7,7 @@
  Base learning framework.
 """
 
+from operator import mod
 import os
 import random
 import shutil
@@ -45,9 +46,13 @@ class LFramework(nn.Module):
         self.adam_beta1 = args.adam_beta1
         self.adam_beta2 = args.adam_beta2
         self.optim = None
+        self.decrease_step = args.decrease_step
+        self.decrease_rate = args.decrease_rate
+        self.decrease_offline = args.decrease_offline
 
         self.inference = not args.train
         self.run_analysis = args.run_analysis
+        self.alpha = 1
 
         self.kg = kg
         self.mdl = mdl
@@ -65,7 +70,7 @@ class LFramework(nn.Module):
 
     def run_train(self, train_data, dev_data):
         self.print_all_model_parameters()
-
+        dev_metric_list = []
         if self.optim is None:
             self.optim = optim.Adam(
                 filter(lambda p: p.requires_grad, self.parameters()), lr=self.learning_rate)
@@ -75,11 +80,13 @@ class LFramework(nn.Module):
         dev_metrics_history = []
 
         for epoch_id in range(self.start_epoch, self.num_epochs):
+            if self.decrease_step > 0 and epoch_id % self.decrease_step == 0:
+                self.alpha = self.decrease_offline + (self.alpha-self.decrease_offline) * self.decrease_rate
             print('Epoch {}'.format(epoch_id))
             if self.rl_variation_tag.startswith('rs'):
                 # Reward shaping module sanity check:
                 #   Make sure the reward shaping module output value is in the correct range
-                train_scores = self.test_fn(train_data)
+                train_scores = self.test_fn(train_data) #test_fn is to be accomplished by child class
                 dev_scores = self.test_fn(dev_data)
                 print('Train set average fact score: {}'.format(float(train_scores.mean())))
                 print('Dev set average fact score: {}'.format(float(dev_scores.mean())))
@@ -98,13 +105,16 @@ class LFramework(nn.Module):
             if self.run_analysis:
                 rewards = None
                 fns = None
+            
             for example_id in tqdm(range(0, len(train_data), self.batch_size)):
-
+                self.plot = example_id == 0
+                self.plotid = epoch_id
                 self.optim.zero_grad()
 
                 mini_batch = train_data[example_id:example_id + self.batch_size]
                 if len(mini_batch) < self.batch_size:
                     continue
+                #here the data is with number format
                 loss = self.loss(mini_batch)
                 loss['model_loss'].backward()
                 if self.grad_norm > 0:
@@ -140,15 +150,22 @@ class LFramework(nn.Module):
                 print('* Analysis: false negative ratio = {}'.format(fn_ratio))
 
             # Check dev set performance
-            if self.run_analysis or (epoch_id > 0 and epoch_id % self.num_peek_epochs == 0):
+            if self.run_analysis or (epoch_id >= 0 and epoch_id % self.num_peek_epochs == 0):
                 self.eval()
                 self.batch_size = self.dev_batch_size
-                dev_scores = self.forward(dev_data, verbose=False)
+                dev_scores, search_traces = self.forward(dev_data, verbose=self.args.save_beam_search_paths)
                 print('Dev set performance: (correct evaluation)')
-                _, _, _, _, mrr = src.eval.hits_and_ranks(dev_data, dev_scores, self.kg.dev_objects, verbose=True)
-                metrics = mrr
+                dev_metrics = src.eval.hits_and_ranks(dev_data, dev_scores, search_traces, self.kg, verbose=True, where="dev")
+                metrics = dev_metrics["mrr"]
                 print('Dev set performance: (include test set labels)')
-                src.eval.hits_and_ranks(dev_data, dev_scores, self.kg.all_objects, verbose=True)
+                test_metrics = src.eval.hits_and_ranks(dev_data, dev_scores, search_traces, self.kg, verbose=True, where="test")
+                dev_metric_list.append((
+                    dev_metrics["hit1"],
+                    dev_metrics["mrr"],
+                    dev_metrics["conf1"],
+                    test_metrics["hit1"],
+                    test_metrics["mrr"],
+                    test_metrics["conf1"]))
                 # Action dropout anneaking
                 if self.model.startswith('point'):
                     eta = self.action_dropout_anneal_interval
@@ -165,7 +182,7 @@ class LFramework(nn.Module):
                         o_f.write('{}'.format(epoch_id))
                 else:
                     # Early stopping
-                    if epoch_id >= self.num_wait_epochs and metrics < np.mean(dev_metrics_history[-self.num_wait_epochs:]):
+                    if (epoch_id-self.start_epoch) >= self.num_wait_epochs and metrics < np.mean(dev_metrics_history[-self.num_wait_epochs:]):
                         break
                 dev_metrics_history.append(metrics)
                 if self.run_analysis:
@@ -191,18 +208,30 @@ class LFramework(nn.Module):
                             o_f.write('{}\n'.format(hit_ratio))
                         with open(fn_ratio_file, 'a') as o_f:
                             o_f.write('{}\n'.format(fn_ratio))
+        
+        with open(os.path.join(self.model_dir,"dev_metrics_list.txt"),"w") as f:
+            for x in dev_metric_list:
+                f.write("{}\t{}\t{}\t{}\t{}\t{}\n".format(x[0],x[1],x[2],x[3],x[4],x[5]))
 
     def forward(self, examples, verbose=False):
         pred_scores = []
+        paths = []
         for example_id in tqdm(range(0, len(examples), self.batch_size)):
             mini_batch = examples[example_id:example_id + self.batch_size]
             mini_batch_size = len(mini_batch)
             if len(mini_batch) < self.batch_size:
                 self.make_full_batch(mini_batch, self.batch_size)
-            pred_score = self.predict(mini_batch, verbose=verbose)
+            if self.args.model.startswith('point'):
+                pred_score,search_traces = self.predict(mini_batch, verbose=verbose)
+            else:
+                pred_score = self.predict(mini_batch, verbose=verbose)
             pred_scores.append(pred_score[:mini_batch_size])
+            if verbose:
+                paths += search_traces
+            else:
+                paths = None
         scores = torch.cat(pred_scores)
-        return scores
+        return scores,paths
 
     def format_batch(self, batch_data, num_labels=-1, num_tiles=1):
         """

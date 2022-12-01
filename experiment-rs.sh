@@ -20,6 +20,14 @@ use_action_space_bucketing_flag=''
 if [[ $use_action_space_bucketing = *"True"* ]]; then
     use_action_space_bucketing_flag='--use_action_space_bucketing'
 fi
+use_conf_flag=''
+if [[ $use_conf = *"True"* ]]; then
+    use_conf_flag='--use_conf'
+fi
+support_times_flag=''
+if [[ $support_times = *"True"* ]]; then
+    support_times_flag='--support_times'
+fi 
 
 cmd="python3 -m src.experiments \
     --data_dir $data_dir \
@@ -48,15 +56,22 @@ cmd="python3 -m src.experiments \
     --action_dropout_rate $action_dropout_rate \
     --action_dropout_anneal_interval $action_dropout_anneal_interval \
     --reward_shaping_threshold $reward_shaping_threshold \
+    --decrease_step $decrease_step \
+    --decrease_rate $decrease_rate \
+    --decrease_offline $decrease_offline \
     $relation_only_flag \
     --beta $beta \
     --beam_size $beam_size \
     --num_paths_per_entity $num_paths_per_entity \
     $group_examples_by_query_flag \
     $use_action_space_bucketing_flag \
+    $use_conf_flag \
+    $support_times_flag \
     --distmult_state_dict_path $distmult_state_dict_path \
     --complex_state_dict_path $complex_state_dict_path \
     --conve_state_dict_path $conve_state_dict_path \
+    --checkpoint_path $checkpoint_path \
+    --path_search_policy $path_search_policy \
     --gpu $gpu \
     $ARGS"
 

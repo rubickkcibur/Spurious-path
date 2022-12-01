@@ -11,6 +11,7 @@ import collections
 import numpy as np
 import os
 import pickle
+import networkx as nx
 
 START_RELATION = 'START_RELATION'
 NO_OP_RELATION = 'NO_OP_RELATION'
@@ -114,7 +115,7 @@ def load_triples_with_label(data_path, r, entity_index_path, relation_index_path
     return triples, labels
 
 def load_triples(data_path, entity_index_path, relation_index_path, group_examples_by_query=False,
-                 add_reverse_relations=False, seen_entities=None, verbose=False):
+                 add_reverse_relations=False, seen_entities=None, verbose=False, few_shot=False, lf=None, emb=False):
     """
     Convert triples stored on disc into indices.
     """
@@ -125,6 +126,9 @@ def load_triples(data_path, entity_index_path, relation_index_path, group_exampl
         return entity2id[e1], entity2id[e2], relation2id[r]
 
     triples = []
+    if few_shot:
+        normal_triples = {}
+        few_triples = {}
     if group_examples_by_query:
         triple_dict = {}
     with open(data_path) as f:
@@ -134,7 +138,7 @@ def load_triples(data_path, entity_index_path, relation_index_path, group_exampl
             if seen_entities and (not e1 in seen_entities or not e2 in seen_entities):
                 num_skipped += 1
                 if verbose:
-                    print('Skip triple ({}) with unseen entity: {}'.format(num_skipped, line.strip())) 
+                    print('Skip triple ({}) with unseen entity: {}'.format(num_skipped, line.strip()))
                 continue
             # if r in ['concept:agentbelongstoorganization', 'concept:teamplaysinleague']:
             #     continue
@@ -154,15 +158,39 @@ def load_triples(data_path, entity_index_path, relation_index_path, group_exampl
                         triple_dict[e2_id][r_inv_id] = set()
                     triple_dict[e2_id][r_inv_id].add(e1_id)
             else:
-                triples.append(triple2ids(e1, e2, r))
-                if add_reverse_relations:
-                    triples.append(triple2ids(e2, e1, r + '_inv'))
+                if not few_shot:
+                    triples.append(triple2ids(e1, e2, r))
+                    if add_reverse_relations:
+                        triples.append(triple2ids(e2, e1, r + '_inv'))
+                else:
+                    triple = triple2ids(e1, e2, r)
+                    if r in lf.kg.few_shot_relation:
+                        if triple[2] not in few_triples:
+                            few_triples[triple[2]] = []
+                        few_triples[triple[2]].append(triple)
+                        if add_reverse_relations:
+                            triple_inv = triple2ids(e2, e1, r + '_inv')
+                            if triple_inv[2] not in few_triples:
+                                few_triples[triple_inv[2]] = []
+                            few_triples[triple_inv[2]].append(triple_inv)
+                    else:
+                        if triple[2] not in normal_triples:
+                            normal_triples[triple[2]] = []
+                        normal_triples[triple[2]].append(triple)
+                        if add_reverse_relations:
+                            triple_inv = triple2ids(e2, e1, r + '_inv')
+                            if triple_inv[2] not in normal_triples:
+                                normal_triples[triple_inv[2]] = []
+                            normal_triples[triple_inv[2]].append(triple_inv)
     if group_examples_by_query:
         for e1_id in triple_dict:
             for r_id in triple_dict[e1_id]:
                 triples.append((e1_id, list(triple_dict[e1_id][r_id]), r_id))
     print('{} triples loaded from {}'.format(len(triples), data_path))
-    return triples
+    if few_shot:
+        return normal_triples, few_triples
+    else:
+        return triples
 
 def load_entity_hist(input_path):
     entity_hist = {}
@@ -180,6 +208,28 @@ def load_index(input_path):
             index[v] = i
             rev_index[i] = v
     return index, rev_index
+
+def get_pgrk(train_path,pgrk_path):
+    G = nx.DiGraph()
+    f = open(train_path, 'r', encoding='utf-8')
+    for line in f.readlines():
+        line = line.strip().split()
+        G.add_node(line[0])
+        G.add_node(line[1])
+        G.add_edge(line[0], line[1])
+    f.close()
+    pagerank_dict = nx.pagerank(G)
+    pagerank_list = list(pagerank_dict.items())
+    pagerank_list.sort(key=lambda x:x[1], reverse=True)
+
+    res = ''
+    for item in pagerank_list:
+        # print(item)
+        res += item[0] + '\t' + ':' + str(item[1]) + '\n'
+    f = open(pgrk_path, "w", encoding='utf-8')
+    f.write(res)
+    # print(res)
+    f.close()
 
 def prepare_kb_envrioment(raw_kb_path, train_path, dev_path, test_path, test_mode, add_reverse_relations=True):
     """

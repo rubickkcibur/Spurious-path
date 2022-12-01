@@ -119,9 +119,9 @@ def beam_search(pn, e_s, q, e_t, kg, num_steps, beam_size, return_path_component
     
     def adjust_search_trace(search_trace, action_offset):
         for i, (r, e) in enumerate(search_trace):
-            new_r = r[action_offset]
-            new_e = e[action_offset]
-            search_trace[i] = (new_r, new_e)
+            new_r = r[action_offset.long()]
+            new_e = e[action_offset.long()]
+            search_trace[i] = [new_r, new_e]
 
     # Initialization
     r_s = int_fill_var_cuda(e_s.size(), kg.dummy_start_r)
@@ -130,7 +130,7 @@ def beam_search(pn, e_s, q, e_t, kg, num_steps, beam_size, return_path_component
     # path encoder
     pn.initialize_path(init_action, kg)
     if kg.args.save_beam_search_paths:
-        search_trace = [(r_s, e_s)]
+        search_trace = [[r_s, e_s]]
 
     # Run beam search for num_steps
     # [batch_size*k], k=1
@@ -154,6 +154,7 @@ def beam_search(pn, e_s, q, e_t, kg, num_steps, beam_size, return_path_component
         # one step forward in search
         db_outcomes, _, _ = pn.transit(
             e, obs, kg, use_action_space_bucketing=True, merge_aspace_batching_outcome=True)
+
         action_space, action_dist = db_outcomes[0]
         # => [batch_size*k, action_space_size]
         log_action_dist = log_action_prob.view(-1, 1) + ops.safe_log(action_dist)
@@ -166,10 +167,10 @@ def beam_search(pn, e_s, q, e_t, kg, num_steps, beam_size, return_path_component
             ops.rearrange_vector_list(log_action_probs, action_offset)
             log_action_probs.append(log_action_prob)
         pn.update_path(action, kg, offset=action_offset)
-        seen_nodes = torch.cat([seen_nodes[action_offset], action[1].unsqueeze(1)], dim=1)
+        seen_nodes = torch.cat([seen_nodes[action_offset.long()], action[1].unsqueeze(1)], dim=1)
         if kg.args.save_beam_search_paths:
             adjust_search_trace(search_trace, action_offset)
-            search_trace.append(action)
+            search_trace.append(list(action))
 
     output_beam_size = int(action[0].size()[0] / batch_size)
     # [batch_size*beam_size] => [batch_size, beam_size]
@@ -178,7 +179,6 @@ def beam_search(pn, e_s, q, e_t, kg, num_steps, beam_size, return_path_component
     beam_search_output['pred_e2_scores'] = log_action_prob.view(batch_size, -1)
     if kg.args.save_beam_search_paths:
         beam_search_output['search_traces'] = search_trace
-
     if return_path_components:
         path_width = 10
         path_components_list = []

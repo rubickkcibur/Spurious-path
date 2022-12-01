@@ -1,0 +1,1 @@
+srun -p inspur -w inspur-gpu-03 ./experiment-rs.sh configs/nell-995-conf.sh --debug 2 --test --save_beam_search_paths

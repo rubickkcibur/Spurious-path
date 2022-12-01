@@ -11,9 +11,11 @@
 
 import copy
 import itertools
+from turtle import color
 import numpy as np
 import os, sys
 import random
+import matplotlib.pyplot as plt
 
 import torch
 
@@ -30,11 +32,13 @@ from src.rl.graph_search.pn import GraphSearchPolicy
 from src.rl.graph_search.pg import PolicyGradient
 from src.rl.graph_search.rs_pg import RewardShapingPolicyGradient
 from src.utils.ops import flatten
+from src.utils.statistics import compute_avg_path_length
+from src.utils.vis import visualize_two_array
 
-torch.cuda.set_device(args.gpu)
+torch.cuda.set_device(args.gpu) #cuda delete
 
 torch.manual_seed(args.seed)
-torch.cuda.manual_seed_all(args.seed)
+torch.cuda.manual_seed_all(args.seed) #cude delete
 
 def process_data():
     data_dir = args.data_dir
@@ -42,7 +46,10 @@ def process_data():
     train_path = data_utils.get_train_path(args)
     dev_path = os.path.join(data_dir, 'dev.triples')
     test_path = os.path.join(data_dir, 'test.triples')
+    pgrk_path = os.path.join(data_dir,"raw.pgrk")
     data_utils.prepare_kb_envrioment(raw_kb_path, train_path, dev_path, test_path, args.test, args.add_reverse_relations)
+    data_utils.get_pgrk(train_path,pgrk_path)
+
 
 def initialize_model_directory(args, random_seed=None):
     # add model parameter info to model directory
@@ -77,10 +84,12 @@ def initialize_model_directory(args, random_seed=None):
             print('* Policy Gradient Baseline: average reward')
         elif args.baseline == 'avg_reward_normalized':
             print('* Policy Gradient Baseline: average reward baseline plus normalization')
+        elif args.baseline == "curriculum":
+            print('* Use curriculum training')
         else:
             print('* Policy Gradient Baseline: None')
         if args.action_dropout_anneal_interval < 1000:
-            hyperparam_sig = '{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}'.format(
+            hyperparam_sig = '{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}'.format(
                 args.baseline,
                 args.entity_dim,
                 args.relation_dim,
@@ -92,12 +101,13 @@ def initialize_model_directory(args, random_seed=None):
                 args.action_dropout_anneal_factor,
                 args.action_dropout_anneal_interval,
                 args.bandwidth,
-                args.beta
+                args.beta,
+                args.num_rollout_steps
             )
             if args.mu != 1.0:
                 hyperparam_sig += '-{}'.format(args.mu)
         else:
-            hyperparam_sig = '{}-{}-{}-{}-{}-{}-{}-{}-{}-{}'.format(
+            hyperparam_sig = '{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}'.format(
                 args.baseline,
                 args.entity_dim,
                 args.relation_dim,
@@ -107,10 +117,17 @@ def initialize_model_directory(args, random_seed=None):
                 args.ff_dropout_rate,
                 args.action_dropout_rate,
                 args.bandwidth,
-                args.beta
+                args.beta,
+                args.num_rollout_steps
             )
+        if args.baseline == "curriculum":
+            hyperparam_sig += '-{}-{}-{}'.format(args.decrease_step,args.decrease_rate,args.decrease_offline)
         if args.reward_shaping_threshold > 0:
             hyperparam_sig += '-{}'.format(args.reward_shaping_threshold)
+        if args.use_conf:
+            hyperparam_sig += '-useConf'
+        if not args.support_times:
+            hyperparam_sig += '-support_not_times'
     elif args.model == 'distmult':
         hyperparam_sig = '{}-{}-{}-{}-{}'.format(
             args.entity_dim,
@@ -230,9 +247,112 @@ def train(lf):
     else:
         seen_entities = set()
     dev_data = data_utils.load_triples(dev_path, entity_index_path, relation_index_path, seen_entities=seen_entities)
-    if args.checkpoint_path is not None:
-        lf.load_checkpoint(args.checkpoint_path)
+    if not args.checkpoint_path == "None":
+        print("please set checkpoint_path to None if u want to train from the beginning, otherwise u should note this statement")
+        quit()
+    #here the data is with number format
     lf.run_train(train_data, dev_data)
+
+def debug(lf):
+    # compute_avg_path_length(lf.kg.adj_list,len(lf.kg.entity2id))
+    # lf.kg.count_relation_attr()
+    lf.batch_size = args.dev_batch_size
+    lf.eval()
+    entity_index_path = os.path.join(args.data_dir, 'entity2id.txt')
+    relation_index_path = os.path.join(args.data_dir, 'relation2id.txt')
+    if 'NELL' in args.data_dir:
+        adj_list_path = os.path.join(args.data_dir, 'adj_list.pkl')
+        seen_entities = data_utils.load_seen_entities(adj_list_path, entity_index_path)
+    else:
+        seen_entities = set()
+    eval_metrics = {
+        'dev': {},
+        'test': {}
+    }
+    dev_path = os.path.join(args.data_dir, 'dev.triples')
+    test_path = os.path.join(args.data_dir, 'test.triples')
+    dev_data = data_utils.load_triples(
+        dev_path, entity_index_path, relation_index_path, seen_entities=seen_entities, verbose=False)
+    test_data = data_utils.load_triples(
+        test_path, entity_index_path, relation_index_path, seen_entities=seen_entities, verbose=False)
+    
+    steps = [5.0,10.0,15.0,20.0]
+    rates = [0.95,0.9,0.85,0.8,0.75]
+    path = "model/umls-point.rs.conve-xavier-curriculum-200-200-3-0.001-0.1-0.0-0.95-400-0.05-2-{}-{}-0.0-useConf/model_best.tar"
+    f = open("model/hyper.txt","w")
+    for s in steps:
+        for r in rates:
+            new_path = path.format(s,r)
+            if not os.path.exists(new_path):
+                print("{}, step={}, rate={}".format(new_path,s,r))
+                continue
+            lf.load_checkpoint(new_path)
+            pred_scores,search_traces = lf.forward(test_data, verbose=args.save_beam_search_paths)
+            test_metrics = src.eval.hits_and_ranks(test_data, pred_scores, search_traces, lf.kg, verbose=True,where="test")
+            f.write("step={}, rate={}, MRR={}, conf={}\n".format(s,r,test_metrics["mrr"],test_metrics["conf1"]))
+    f.close()
+
+    # length = -1
+    # if args.data_dir == "data/umls":
+    #     length = 200
+    # elif args.data_dir == "data/kinship":
+    #     length = 200
+    # elif args.data_dir == "data/WN18RR":
+    #     length = 40
+    # elif "NELL" in args.data_dir:
+    #     length = 30
+    # else:
+    #     print("not exits")
+    #     quit()
+    # x = list(range(length))
+    # model_dir = os.path.split(lf.args.checkpoint_path)[0]
+    # paths = [os.path.join(model_dir,"checkpoint-{}.tar".format(i)) for i in x]
+    # h1s_d = []
+    # mrrs_d = []
+    # c1s_d = []
+    # h1s_t = []
+    # mrrs_t = []
+    # c1s_t = []
+    # for p in paths:
+    #     if not os.path.exists(p):
+    #         break
+    #     lf.load_checkpoint(p)
+    #     pred_scores,search_traces = lf.forward(dev_data, verbose=args.save_beam_search_paths)
+    #     dev_metrics = src.eval.hits_and_ranks(dev_data, pred_scores, search_traces, lf.kg, verbose=True,where="dev")
+    #     h1s_d.append(dev_metrics["hit1"])
+    #     mrrs_d.append(dev_metrics["mrr"])
+    #     c1s_d.append(dev_metrics["conf1"])
+    #     dev_metrics = src.eval.hits_and_ranks(dev_data, pred_scores, search_traces, lf.kg, verbose=True,where="test")
+    #     h1s_t.append(dev_metrics["hit1"])
+    #     mrrs_t.append(dev_metrics["mrr"])
+    #     c1s_t.append(dev_metrics["conf1"])
+    # with open(os.path.join(model_dir,"dev_metrics_list.txt"),"w") as f:
+    #     for i in range(len(h1s_d)):
+    #         f.write("{}\t{}\t{}\t{}\t{}\t{}\n".format(h1s_d[i],mrrs_d[i],c1s_d[i],h1s_t[i],mrrs_t[i],c1s_t[i]))
+    # x = x[:len()]
+    # plt.plot(x,h1s,color="r",label="hit1")
+    # plt.plot(x,mrrs,color="g",label="mrr")
+    # plt.plot(x,c1s,color="b",label="conf1")
+    # plt.savefig(os.path.join(model_dir,"dev-metrics.png"))
+    pass
+
+def picture(lf):
+    model_dir = os.path.split(lf.args.checkpoint_path)[0]
+    hit1=[]
+    mrr=[]
+    conf=[]
+    with open(os.path.join(model_dir,"dev_metrics_list.txt"),"r") as f:
+        for line in f:
+            line = line.strip().split()
+            hit1.append(line[3])
+            mrr.append(line[4])
+            conf.append(line[5])
+    x = list(range(len(hit1)))
+    plt.plot(x,hit1,color="r",label="hit1")
+    plt.plot(x,mrr,color="g",label="mrr")
+    plt.plot(x,conf,color="b",label="conf1")
+    plt.savefig(os.path.join(model_dir,"dev-metrics.png"))
+    return
 
 def inference(lf):
     lf.batch_size = args.dev_batch_size
@@ -318,27 +438,27 @@ def inference(lf):
             dev_path, entity_index_path, relation_index_path, seen_entities=seen_entities, verbose=False)
         test_data = data_utils.load_triples(
             test_path, entity_index_path, relation_index_path, seen_entities=seen_entities, verbose=False)
-        print('Dev set performance:')
-        pred_scores = lf.forward(dev_data, verbose=args.save_beam_search_paths)
-        dev_metrics = src.eval.hits_and_ranks(dev_data, pred_scores, lf.kg.dev_objects, verbose=True)
-        eval_metrics['dev'] = {}
-        eval_metrics['dev']['hits_at_1'] = dev_metrics[0]
-        eval_metrics['dev']['hits_at_3'] = dev_metrics[1]
-        eval_metrics['dev']['hits_at_5'] = dev_metrics[2]
-        eval_metrics['dev']['hits_at_10'] = dev_metrics[3]
-        eval_metrics['dev']['mrr'] = dev_metrics[4]
-        src.eval.hits_and_ranks(dev_data, pred_scores, lf.kg.all_objects, verbose=True)
+        # print('Dev set performance:')
+        # pred_scores,search_traces = lf.forward(dev_data, verbose=args.save_beam_search_paths)
+        # dev_metrics = src.eval.hits_and_ranks(dev_data, pred_scores, search_traces, lf.kg, verbose=True,where="dev")
+        # eval_metrics['dev'] = {}
+        # eval_metrics['dev']['hits_at_1'] = dev_metrics["hit1"]
+        # eval_metrics['dev']['hits_at_3'] = dev_metrics["hit3"]
+        # eval_metrics['dev']['hits_at_5'] = dev_metrics["hit5"]
+        # eval_metrics['dev']['hits_at_10'] = dev_metrics["hit10"]
+        # eval_metrics['dev']['mrr'] = dev_metrics["mrr"]
+        # src.eval.hits_and_ranks(dev_data, pred_scores, search_traces, lf.kg, verbose=True)
         print('Test set performance:')
-        pred_scores = lf.forward(test_data, verbose=False)
-        test_metrics = src.eval.hits_and_ranks(test_data, pred_scores, lf.kg.all_objects, verbose=True)
-        eval_metrics['test']['hits_at_1'] = test_metrics[0]
-        eval_metrics['test']['hits_at_3'] = test_metrics[1]
-        eval_metrics['test']['hits_at_5'] = test_metrics[2]
-        eval_metrics['test']['hits_at_10'] = test_metrics[3]
-        eval_metrics['test']['mrr'] = test_metrics[4]
+        pred_scores,search_traces = lf.forward(test_data, verbose=args.save_beam_search_paths)
+        test_metrics = src.eval.hits_and_ranks(test_data, pred_scores, search_traces, lf.kg, verbose=True)
+        # eval_metrics['dev']['hits_at_1'] = dev_metrics["hit1"]
+        # eval_metrics['dev']['hits_at_3'] = dev_metrics["hit3"]
+        # eval_metrics['dev']['hits_at_5'] = dev_metrics["hit5"]
+        # eval_metrics['dev']['hits_at_10'] = dev_metrics["hit10"]
+        # eval_metrics['dev']['mrr'] = dev_metrics["mrr"]
 
     return eval_metrics
-
+    
 def run_ablation_studies(args):
     """
     Run the ablation study experiments reported in the paper.
@@ -512,7 +632,7 @@ def compute_fact_scores(lf):
     print('Test set average fact score: {}'.format(float(test_scores.mean())))
 
 def get_checkpoint_path(args):
-    if not args.checkpoint_path:
+    if args.checkpoint_path == "None":
         return os.path.join(args.model_dir, 'model_best.tar')
     else:
         return args.checkpoint_path
@@ -742,7 +862,9 @@ def run_experiment(args):
                 lf = construct_model(args)
                 lf.cuda()
 
-                if args.train:
+                if args.debug:
+                    debug(lf)
+                elif args.train:
                     train(lf)
                 elif args.inference:
                     inference(lf)

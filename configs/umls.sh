@@ -29,6 +29,7 @@ action_dropout_anneal_interval=1000
 beta=0.05
 relation_only="False"
 beam_size=128
+checkpoint_path="model/umls-point-xavier-n/a-200-200-3-0.001-0.3-0.1-0.9-400-0.05-support_not_times/model_best.tar"
 
 num_paths_per_entity=-1
 margin=1

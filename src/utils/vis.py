@@ -10,8 +10,15 @@
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
 import numpy as np
 
+def visualize_two_array(x,y,path):
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.scatter(x,y)
+    ax.yaxis.set_major_formatter(mtick.FormatStrFormatter('%.2f'))
+    plt.savefig(path)
 
 def visualize_step(action_dist, e, action_space, plot):
     action_space_size = len(action_space)

@@ -9,6 +9,7 @@
 
 import argparse
 import os
+from xmlrpc.client import boolean
 
 
 parser = argparse.ArgumentParser(description='Multi-Hop Knowledge Graph Reasoning with Reward Shaping')
@@ -18,6 +19,8 @@ parser.add_argument('--process_data', action='store_true',
                     help='process knowledge graph (default: False)')
 parser.add_argument('--train', action='store_true',
                     help='run path selection set_policy training (default: False)')
+parser.add_argument('--debug', action='store_true',
+                    help='get some medium data during development (default: False)')
 parser.add_argument('--inference', action='store_true',
                     help='run knowledge graph inference (default: False)')
 parser.add_argument('--search_random_seed', action='store_true',
@@ -41,7 +44,7 @@ parser.add_argument('--model_dir', type=str, default=os.path.join(os.path.dirnam
                     help='directory where the model parameters are stored (default: None)')
 parser.add_argument('--gpu', type=int, default=0,
                     help='gpu device (default: 0)')
-parser.add_argument('--checkpoint_path', type=str, default=None,
+parser.add_argument('--checkpoint_path', type=str, default="None",
                     help='path to a pretrained checkpoint')
 
 # Data
@@ -89,6 +92,8 @@ parser.add_argument('--zero_entity_initialization', type=bool, default=False,
                     help='Initialize all entities to zero (default: False)')
 parser.add_argument('--uniform_entity_initialization', type=bool, default=False,
                     help='Initialize all entities with the same random embedding (default: False)')
+parser.add_argument('--path_search_policy', type=str, default="tree",
+                    help='Method to count paths compatible with a rule (default: tree)')
 
 # Optimization
 parser.add_argument('--num_epochs', type=int, default=200,
@@ -168,6 +173,16 @@ parser.add_argument('--reward_shaping_threshold', type=float, default=0,
 		            help='Threshold cut off of reward shaping scores (default: 0)')
 parser.add_argument('--mu', type=float, default=1.0,
                     help='Weight over the estimated reward (default: 1.0)')
+parser.add_argument('--use_conf', action='store_true',
+                    help='Use path confidence as reward (default: False)')
+parser.add_argument('--support_times', action='store_true',
+                    help='Computing support value with path times (default: False)')
+parser.add_argument('--decrease_step', type=float, default=20,
+		            help='epochs per which alpha decreases (default: 20)')
+parser.add_argument('--decrease_rate', type=float, default=0.8,
+		            help='alpha decreases times (default: 0.8)')
+parser.add_argument('--decrease_offline', type=float, default=0,
+                    help='alpha decreases offline (default: 0)')                  
 
 # Graph Completion
 parser.add_argument('--theta', type=float, default=0.2,

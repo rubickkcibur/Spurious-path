@@ -10,6 +10,9 @@
 import collections
 import os
 import pickle
+import time
+from tracemalloc import start
+import numpy as np
 
 import torch
 import torch.nn as nn
@@ -19,7 +22,7 @@ from src.data_utils import NO_OP_ENTITY_ID, NO_OP_RELATION_ID
 from src.data_utils import DUMMY_ENTITY_ID, DUMMY_RELATION_ID
 from src.data_utils import START_RELATION_ID
 import src.utils.ops as ops
-from src.utils.ops import int_var_cuda, var_cuda
+from src.utils.ops import int_var_cuda, var_cuda, var_to_numpy, zeros_var_cuda
 
 
 class KnowledgeGraph(nn.Module):
@@ -33,6 +36,7 @@ class KnowledgeGraph(nn.Module):
         self.type2id, self.id2type = {}, {}
         self.entity2typeid = {}
         self.adj_list = None
+        self.relational_adjs = None
         self.bandwidth = args.bandwidth
         self.args = args
 
@@ -52,11 +56,13 @@ class KnowledgeGraph(nn.Module):
         self.dev_object_vectors = None
         self.all_subject_vectors = None
         self.all_object_vectors = None
-
+        self.data_dir = args.data_dir
         print('** Create {} knowledge graph **'.format(args.model))
-        self.load_graph_data(args.data_dir)
-        self.load_all_answers(args.data_dir)
-
+        self.load_graph_data(args.data_dir) #generate self.action_space_buckets
+        self.load_all_answers(args.data_dir,args.add_reverse_relations)
+        if self.args.model.startswith('point'): 
+            self.load_relation_attr(args.data_dir)
+        self.store_eval_conf = {}
         # Define NN Modules
         self.entity_dim = args.entity_dim
         self.relation_dim = args.relation_dim
@@ -90,6 +96,14 @@ class KnowledgeGraph(nn.Module):
             with open(adj_list_path, 'rb') as f:
                 self.adj_list = pickle.load(f)
             self.vectorize_action_space(data_dir)
+
+            self.relational_adjs = {}
+            for e1 in self.adj_list:
+                for r in self.adj_list[e1]:
+                    for e2 in self.adj_list[e1][r]:
+                        if r not in self.relational_adjs:
+                            self.relational_adjs[r] = []
+                        self.relational_adjs[r].append((e1,e2))
 
     def vectorize_action_space(self, data_dir):
         """
@@ -228,20 +242,22 @@ class KnowledgeGraph(nn.Module):
         add_object(self.dummy_e, self.dummy_e, self.dummy_r, train_objects)
         add_object(self.dummy_e, self.dummy_e, self.dummy_r, dev_objects)
         add_object(self.dummy_e, self.dummy_e, self.dummy_r, all_objects)
-        for file_name in ['raw.kb', 'train.triples', 'dev.triples', 'test.triples']:
+        for file_name in ['raw.kb', 'train.triples', 'dev.triples', 'test.triples', 'train.dev.triples']:
             if 'NELL' in self.args.data_dir and self.args.test and file_name == 'train.triples':
+                continue
+            if ('NELL' not in self.args.data_dir) and (not self.args.test) and file_name == 'train.dev.triples':
                 continue
             with open(os.path.join(data_dir, file_name)) as f:
                 for line in f:
                     e1, e2, r = line.strip().split()
                     e1, e2, r = self.triple2ids((e1, e2, r))
-                    if file_name in ['raw.kb', 'train.triples']:
+                    if file_name in ['raw.kb', 'train.triples', 'train.dev.triples']:
                         add_subject(e1, e2, r, train_subjects)
                         add_object(e1, e2, r, train_objects)
                         if add_reversed_edges:
                             add_subject(e2, e1, self.get_inv_relation_id(r), train_subjects)
                             add_object(e2, e1, self.get_inv_relation_id(r), train_objects)
-                    if file_name in ['raw.kb', 'train.triples', 'dev.triples']:
+                    if file_name in ['raw.kb', 'train.triples', 'dev.triples', 'train.dev.triples']:
                         add_subject(e1, e2, r, dev_subjects)
                         add_object(e1, e2, r, dev_objects)
                         if add_reversed_edges:
@@ -309,6 +325,142 @@ class KnowledgeGraph(nn.Module):
 
         self.vectorize_action_space(self.args.data_dir)
 
+    def search_adj_by_rule(self,e1,rule,step,space):
+        re = np.zeros(len(self.id2entity))
+        if step == rule.body_length:
+            re[e1] = 1
+            return re
+        predicate = rule.get_predicate(step)
+        for r in space[e1]:
+            for e2 in space[e1][r]:
+                assignment = (e1,r,e2)
+                if rule.compatible(predicate,assignment):
+                    re = np.add(re,self.search_adj_by_rule(e2,rule,step+1,space))
+        return re
+    
+    def search_adj_by_rule_cuda(self,e1,rule):
+        re = zeros_var_cuda((1,len(self.id2entity)))
+        re[0][e1] = 1
+        for step in range(rule.body_length):
+            predicate = rule.get_predicate(step)
+            r = predicate[1]
+            trans = zeros_var_cuda((len(self.id2entity),len(self.id2entity)))
+            for (e1,e2) in self.relational_adjs[r]:
+                trans[e1][e2] = 1
+            re = torch.mm(re,trans)
+        return var_to_numpy(re.squeeze())
+        
+    def cnt_paths_by_rule(self,rule,start_points,where="train"):
+        path_trees = {}
+        if where == "all":
+            space = self.all_objects
+        elif where == "dev":
+            space = self.dev_objects
+        else:
+            space = self.adj_list
+        for e1 in start_points:
+            if self.args.path_search_policy == "tree":
+                leaves = self.search_adj_by_rule(e1,rule,0,space)
+            elif self.args.path_search_policy == "matrix":
+                leaves = self.search_adj_by_rule_cuda(e1,rule) #not complete
+            else:
+                raise RuntimeError("illegal path search policy")
+            path_trees[e1] = leaves
+        return path_trees
+
+    def count_relation_attr(self):
+        r2attr = {}
+        r2e1 = {}
+        r2e2 = {}
+        r2functionality = {}
+        for e1 in self.adj_list:
+            for r in self.adj_list[e1]:
+                if r not in r2e1:
+                    r2e1[r] = set()
+                r2e1[r].add(e1)
+                if r not in r2functionality:
+                    r2functionality[r] = []
+                r2functionality[r].append(len(self.adj_list[e1][r]))
+                if r not in r2e2:
+                    r2e2[r] = set()
+                for e2 in self.adj_list[e1][r]:
+                    r2e2[r].add(e2)
+        for r in r2e1:
+            all = len(self.adj_list)
+            dom = len(r2e1[r])
+            ran = len(r2e2[r])
+            functionality = r2functionality[r]
+            functionality = sum(functionality)/len(functionality)
+            r2attr[r] = [dom/all,ran/all,functionality]
+
+        r2e1 = {}
+        r2e2 = {}
+        r2functionality = {}
+        for e1 in self.all_objects:
+            for r in self.all_objects[e1]:
+                if r not in r2e1:
+                    r2e1[r] = set()
+                r2e1[r].add(e1)
+                if r not in r2functionality:
+                    r2functionality[r] = []
+                r2functionality[r].append(len(self.all_objects[e1][r]))
+                if r not in r2e2:
+                    r2e2[r] = set()
+                for e2 in self.all_objects[e1][r]:
+                    r2e2[r].add(e2)
+        for r in r2e1:
+            all = len(self.all_objects)
+            dom = len(r2e1[r])
+            ran = len(r2e2[r])
+            functionality = r2functionality[r]
+            functionality = sum(functionality)/len(functionality)
+            if r in r2attr:
+                r2attr[r] += [dom/all,ran/all,functionality]
+            else:
+                r2attr[r] = [0,0,0,dom/all,ran/all,functionality]
+            if r2attr[r][2] > r2attr[r][5]:
+                print(self.id2relation[r])
+        print(len(self.relation2id))
+        print(len(r2e1))
+        with open(os.path.join(self.data_dir,"relation.attr"),"w",encoding="utf8") as f:
+            for e,id in self.relation2id.items():
+                if id == START_RELATION_ID or id == NO_OP_RELATION_ID or id == DUMMY_RELATION_ID:
+                    continue
+                attr = r2attr[id]
+                f.write("{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format(e,attr[0],attr[1],attr[2],attr[3],attr[4],attr[5]))
+        
+    def load_relation_attr(self,data_dir):
+        self.r2attr = {}
+        attrPath = os.path.join(data_dir,"relation.attr")
+        if not os.path.exists(attrPath):
+            self.count_relation_attr()
+        with open(os.path.join(data_dir,"relation.attr"),"r",encoding="utf8") as f:
+            for line in f:
+                line = line.strip()
+                line = line.split()
+                self.r2attr[line[0]] = [float(d) for d in line[1:]]
+
+    def build_masked_graph(self,rm_data):
+        self.masked_adj_list = collections.defaultdict(collections.defaultdict)
+        for e1 in self.adj_list:
+            for r in self.adj_list[e1]:
+                e2 = self.adj_list[e1][r]
+
+    def in_graph(self,e1,r,e2,where="all"):
+        if where == "all":
+            space = self.all_objects
+        elif where == "dev":
+            space = self.dev_objects
+        else:
+            space = self.adj_list
+        if e1 not in space:
+            return False
+        if r not in space[e1]:
+            return False
+        if e2 not in space[e1][r]:
+            return False
+        return True
+
     def get_inv_relation_id(self, r_id):
         return r_id + 1
 
@@ -345,7 +497,7 @@ class KnowledgeGraph(nn.Module):
         e_space = (r_space.view(batch_size, -1) == r.unsqueeze(1)).long() * e_space.view(batch_size, -1)
         e_set_out = []
         for i in range(len(e_space)):
-            e_set_out_b = var_cuda(unique(e_space[i].data))
+            e_set_out_b = var_cuda(unique(e_space[i].data)) #unique???
             e_set_out.append(e_set_out_b.unsqueeze(0))
         e_set_out = ops.pad_and_cat(e_set_out, padding_value=self.dummy_e)
         return e_set_out

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-data_dir="data/NELL-995"
+data_dir="data/YAGO11k"
 model="point"
 group_examples_by_query="False"
 use_action_space_bucketing="True"
@@ -16,8 +16,8 @@ num_epochs=1000
 num_wait_epochs=100
 num_peek_epochs=2
 bucket_interval=5
-batch_size=64
-train_batch_size=64
+batch_size=128
+train_batch_size=128
 dev_batch_size=16
 learning_rate=0.001
 baseline="n/a"
@@ -29,7 +29,6 @@ action_dropout_anneal_interval=1000
 beta=0.05
 relation_only="False"
 beam_size=128
-checkpoint_path="model/NELL-995.test-point-xavier-n/a-200-200-3-0.001-0.3-0.1-0.3-256-0.05-3-support_not_times-test/model_best.tar"
 
 num_paths_per_entity=-1
 margin=-1

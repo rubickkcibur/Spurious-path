@@ -51,6 +51,9 @@ class PolicyGradient(LFramework):
         self.num_path_types = 0
         self.rule2conf = {}
 
+        #expert line
+        self.ips_threshold = args.ips_threshold
+
     def reward_fun(self, e1, r, e2, pred_e2):
         return (pred_e2 == e2).float()
 
@@ -83,18 +86,18 @@ class PolicyGradient(LFramework):
                 conf_r = []
                 conf_pe2 = []
                 times = []
-                for (e,leaves) in path_trees.items():
-                    for i in range(len(leaves)):
-                        if leaves[i] <= 0:
-                            continue
-                        conf_e1.append(e)
-                        conf_e2.append(int(e2[idx]))
-                        conf_r.append(int(r[idx]))
-                        conf_pe2.append(i)
-                        if self.support_times:
-                            times.append(leaves[i])
-                        else:
-                            times.append(1)
+                for (pe2,weight) in path_trees.items():
+                    # for i in range(len(leaves)):
+                    #     if leaves[i] <= 0:
+                    #         continue
+                    conf_e1.append(int(e1[idx]))
+                    conf_e2.append(int(e2[idx]))
+                    conf_r.append(int(r[idx]))
+                    conf_pe2.append(pe2)
+                    if self.support_times:
+                        times.append(weight)
+                    else:
+                        times.append(1)
                 rewards = self.reward_fun(
                     var_cuda(torch.LongTensor(conf_e1), requires_grad=False),
                     var_cuda(torch.LongTensor(conf_r), requires_grad=False),
@@ -108,7 +111,7 @@ class PolicyGradient(LFramework):
         return var_cuda(torch.FloatTensor(confs), requires_grad=False)
 
     def loss(self, mini_batch):
-        
+        pn = self.mdl
         def stablize_reward(r):
             r_2D = r.view(-1, self.num_rollouts)
             if self.baseline == 'avg_reward':
@@ -131,46 +134,8 @@ class PolicyGradient(LFramework):
         log_action_probs = output['log_action_probs']
         action_entropy = output['action_entropy']
         path_trace = output["path_trace"]
-        # Compute discounted reward
-        # todo change reward_fun, use path_trace to evaluate confidence
-        #debug
-        # conf_reward = self.conf_fun(
-        #         [(var_to_numpy(r),var_to_numpy(e)) for (r,e) in path_trace],
-        #         var_to_numpy(e1),
-        #         var_to_numpy(r),
-        #         var_to_numpy(e2)
-        #     )
-        # conf_reward = stablize_reward(conf_reward)
-        # baseline_reward = self.reward_fun(e1, r, e2, pred_e2)
-        # baseline_reward = stablize_reward(baseline_reward)
-        # diff = torch.abs(conf_reward-baseline_reward)
-        # conf_high_cnt = 0
-        # baseline_high_cnt = 0
-        # x = var_to_numpy(baseline_reward)
-        # y = var_to_numpy(conf_reward)
-        # x = x - 0.5
-        # y = y - 0.5
-        # plt.scatter(x,y)
-        # ax = plt.gca()
-        # ax.spines['right'].set_color('r')
-        # ax.spines['top'].set_color('none')
-        # ax.xaxis.set_ticks_position('bottom')
-        # ax.spines['bottom'].set_position(('data',0))
-        # ax.yaxis.set_ticks_position('left')
-        # ax.spines['left'].set_position(('data',0))
-        # plt.savefig("src/umls.png")
-        # for i in range(diff.shape[0]):
-        #     if diff[i] > 0.5:
-        #         print(conf_reward[i])
-        #         print(baseline_reward[i])
-        #         self.print_path([(var_to_numpy(r),var_to_numpy(e)) for (r,e) in path_trace],[i])
-        #         print(self.kg.id2relation[var_to_numpy(r)[i]])
-        #         if conf_reward[i] > baseline_reward[i]:
-        #             conf_high_cnt += 1
-        #         else:
-        #             baseline_high_cnt += 1
-        # print(conf_high_cnt,",",baseline_high_cnt)
-        # quit()
+        #path_trace(steps, (r,e), batch_size)
+
         baseline_reward = self.reward_fun(e1, r, e2, pred_e2)
         if self.use_conf:
             final_reward = self.conf_fun(
@@ -181,12 +146,22 @@ class PolicyGradient(LFramework):
             )
         else:
             final_reward = self.reward_fun(e1, r, e2, pred_e2)
+
+        if self.args.num_expert > 0:
+            experts = var_to_numpy((baseline_reward > 0.98) & (final_reward > self.ips_threshold))
+            pn.update_experts(
+                var_to_numpy(r), 
+                [(var_to_numpy(r),var_to_numpy(e)) for (r,e) in path_trace],
+                experts
+            )
+
         if self.baseline == 'n/a':
             final_reward = torch.where(final_reward<baseline_reward,final_reward,baseline_reward)
         elif self.baseline == "curriculum":
             final_reward = self.alpha * final_reward + (1-self.alpha) * baseline_reward
         else:
             final_reward = stablize_reward(final_reward)
+
         if self.plot:
             x = var_to_numpy(baseline_reward)
             y = var_to_numpy(final_reward)

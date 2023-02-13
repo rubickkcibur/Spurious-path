@@ -26,7 +26,7 @@ def hits_and_ranks(examples, scores, search_traces, kg, verbose=False, where="te
     Compute ranking based metrics.
     """
     all_answers = kg.all_objects if where == "test" else kg.dev_objects
-    print(len(examples),len(scores))
+    # print(len(examples),len(scores))
     assert (len(examples) == scores.shape[0])
     # mask false negatives in the predictions
     dummy_mask = [DUMMY_ENTITY_ID, NO_OP_ENTITY_ID]
@@ -42,15 +42,15 @@ def hits_and_ranks(examples, scores, search_traces, kg, verbose=False, where="te
         scores[i, e2_multi] = 0
         # write back the save prediction
         scores[i, e2] = target_score
-        print('e2_multi',e2_multi)
-        print('scores',scores[i])
-        print('scores[i][e2]',scores[i][e2])
+        # print('e2_multi',e2_multi)
+        # print('scores',scores[i])
+        # print('scores[i][e2]',scores[i][e2])
 
     # sort and rank
     top_k_scores, top_k_targets = torch.topk(scores, min(scores.size(1), args.beam_size))
     top_k_targets = top_k_targets.cpu().numpy()
-    print('top_k_scores',top_k_scores)
-    print('top_k_targets',top_k_targets)
+    # print('top_k_scores',top_k_scores)
+    # print('top_k_targets',top_k_targets)
 
     hits_at_1 = 0
     hits_at_3 = 0
@@ -136,15 +136,15 @@ def hits_and_ranks(examples, scores, search_traces, kg, verbose=False, where="te
                 conf_r = []
                 conf_pe2 = []
                 times = []
-                for (e,leaves) in path_trees.items():
-                    for j in range(len(leaves)):
-                        if leaves[j] <= 0:
-                            continue
-                        conf_e1.append(e)
-                        conf_e2.append(search_trace[-1][1])
-                        conf_r.append(query_r)
-                        conf_pe2.append(j)
-                        times.append(leaves[j]) 
+                for (pe2,weight) in path_trees.items():
+                    # for j in range(len(leaves)):
+                    #     if leaves[j] <= 0:
+                    #         continue
+                    conf_e1.append(search_trace[0][1])
+                    conf_e2.append(search_trace[-1][1])
+                    conf_r.append(query_r)
+                    conf_pe2.append(pe2)
+                    times.append(weight) 
                 rewards = []
                 for j in range(len(conf_e1)):
                     rewards.append(1 if kg.in_graph(conf_e1[j],conf_r[j],conf_pe2[j],"all") else 0)

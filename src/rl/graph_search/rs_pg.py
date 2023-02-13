@@ -95,7 +95,7 @@ class RewardShapingPolicyGradient(PolicyGradient):
 
     @property
     def fn_model(self):
-        return self.model.split('.')[2]
+        return self.model.split('.')[3] if self.model.split('.')[2] == "new" else self.model.split('.')[2]
 
 def forward_fact_oracle(e1, r, e2, kg):
     oracle = zeros_var_cuda([len(e1), kg.num_entities]).cuda()

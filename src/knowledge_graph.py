@@ -338,6 +338,22 @@ class KnowledgeGraph(nn.Module):
                     re = np.add(re,self.search_adj_by_rule(e2,rule,step+1,space))
         return re
     
+    def search_adj_by_rule_no_recursion(self,e1,rule,space):
+        current_e = {}
+        if e1 not in space:
+            return {}
+        current_e[e1] = 1
+        for r in rule.get_rel_path():
+            next_e = {}
+            for e,weight in current_e.items():
+                if r in space[e]:
+                    for e2 in space[e][r]:
+                        if e2 not in next_e:
+                            next_e[e2] = 0
+                        next_e[e2] += weight
+            current_e = next_e
+        return current_e
+
     def search_adj_by_rule_cuda(self,e1,rule):
         re = zeros_var_cuda((1,len(self.id2entity)))
         re[0][e1] = 1
@@ -360,13 +376,14 @@ class KnowledgeGraph(nn.Module):
             space = self.adj_list
         for e1 in start_points:
             if self.args.path_search_policy == "tree":
-                leaves = self.search_adj_by_rule(e1,rule,0,space)
+                # leaves = self.search_adj_by_rule(e1,rule,0,space)
+                re = self.search_adj_by_rule_no_recursion(e1,rule,space)
             elif self.args.path_search_policy == "matrix":
                 leaves = self.search_adj_by_rule_cuda(e1,rule) #not complete
             else:
                 raise RuntimeError("illegal path search policy")
-            path_trees[e1] = leaves
-        return path_trees
+            # path_trees[e1] = leaves
+        return re
 
     def count_relation_attr(self):
         r2attr = {}

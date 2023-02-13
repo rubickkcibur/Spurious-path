@@ -76,3 +76,5 @@ To have evaluation on PS metric, use the `--save_beam_search_paths` flag:
 
 ### Change the hyperparameters
 To change the hyperparameters and other experiment set up, start from the [configuration files](configs).
+
+./experiment-newarch.sh configs/umls-newarch.sh --train 0 --save_beam_search_paths

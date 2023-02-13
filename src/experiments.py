@@ -29,6 +29,7 @@ from src.emb.fact_network import ComplEx, ConvE, DistMult
 from src.emb.fact_network import get_conve_kg_state_dict, get_complex_kg_state_dict, get_distmult_kg_state_dict
 from src.emb.emb import EmbeddingBasedMethod
 from src.rl.graph_search.pn import GraphSearchPolicy
+from src.rl.graph_search.my_pn import GuidedPolicy
 from src.rl.graph_search.pg import PolicyGradient
 from src.rl.graph_search.rs_pg import RewardShapingPolicyGradient
 from src.utils.ops import flatten
@@ -49,7 +50,6 @@ def process_data():
     pgrk_path = os.path.join(data_dir,"raw.pgrk")
     data_utils.prepare_kb_envrioment(raw_kb_path, train_path, dev_path, test_path, args.test, args.add_reverse_relations)
     data_utils.get_pgrk(train_path,pgrk_path)
-
 
 def initialize_model_directory(args, random_seed=None):
     # add model parameter info to model directory
@@ -128,6 +128,8 @@ def initialize_model_directory(args, random_seed=None):
             hyperparam_sig += '-useConf'
         if not args.support_times:
             hyperparam_sig += '-support_not_times'
+        if args.num_expert > 0:
+            hyperparam_sig += '-{}-{}'.format(args.num_expert, args.ips_threshold)
     elif args.model == 'distmult':
         hyperparam_sig = '{}-{}-{}-{}-{}'.format(
             args.entity_dim,
@@ -204,6 +206,25 @@ def construct_model(args):
     if args.model in ['point', 'point.gc']:
         pn = GraphSearchPolicy(args)
         lf = PolicyGradient(args, kg, pn)
+    elif args.model.startswith('point.rs.new'):
+        if args.num_expert > 0:
+            pn = GuidedPolicy(args)
+        else:
+            pn = GraphSearchPolicy(args)
+        fn_model = args.model.split('.')[3]
+        fn_args = copy.deepcopy(args)
+        fn_args.model = fn_model
+        fn_args.relation_only = False
+        if fn_model == 'complex':
+            fn = ComplEx(fn_args)
+            fn_kg = KnowledgeGraph(fn_args)
+        elif fn_model == 'distmult':
+            fn = DistMult(fn_args)
+            fn_kg = KnowledgeGraph(fn_args)
+        elif fn_model == 'conve':
+            fn = ConvE(fn_args, kg.num_entities)
+            fn_kg = KnowledgeGraph(fn_args)
+        lf = RewardShapingPolicyGradient(args, kg, pn, fn_kg, fn)
     elif args.model.startswith('point.rs'):
         pn = GraphSearchPolicy(args)
         fn_model = args.model.split('.')[2]
@@ -248,8 +269,8 @@ def train(lf):
         seen_entities = set()
     dev_data = data_utils.load_triples(dev_path, entity_index_path, relation_index_path, seen_entities=seen_entities)
     if not args.checkpoint_path == "None":
-        print("please set checkpoint_path to None if u want to train from the beginning, otherwise u should note this statement")
-        quit()
+        # raise RuntimeError("please set checkpoint_path to None if u want to train from the beginning, otherwise you should comment out this statement.")
+        lf.load_checkpoint(get_checkpoint_path(args))
     #here the data is with number format
     lf.run_train(train_data, dev_data)
 
@@ -276,59 +297,61 @@ def debug(lf):
     test_data = data_utils.load_triples(
         test_path, entity_index_path, relation_index_path, seen_entities=seen_entities, verbose=False)
     
-    steps = [5.0,10.0,15.0,20.0]
-    rates = [0.95,0.9,0.85,0.8,0.75]
-    path = "model/umls-point.rs.conve-xavier-curriculum-200-200-3-0.001-0.1-0.0-0.95-400-0.05-2-{}-{}-0.0-useConf/model_best.tar"
-    f = open("model/hyper.txt","w")
-    for s in steps:
-        for r in rates:
-            new_path = path.format(s,r)
-            if not os.path.exists(new_path):
-                print("{}, step={}, rate={}".format(new_path,s,r))
-                continue
-            lf.load_checkpoint(new_path)
-            pred_scores,search_traces = lf.forward(test_data, verbose=args.save_beam_search_paths)
-            test_metrics = src.eval.hits_and_ranks(test_data, pred_scores, search_traces, lf.kg, verbose=True,where="test")
-            f.write("step={}, rate={}, MRR={}, conf={}\n".format(s,r,test_metrics["mrr"],test_metrics["conf1"]))
-    f.close()
+    # steps = [5.0,10.0,15.0,20.0]
+    # rates = [0.95,0.9,0.85,0.8,0.75]
+    # path = "model/umls-point.rs.conve-xavier-curriculum-200-200-3-0.001-0.1-0.0-0.95-400-0.05-2-{}-{}-0.0-useConf/model_best.tar"
+    # f = open("model/hyper.txt","w")
+    # for s in steps:
+    #     for r in rates:
+    #         new_path = path.format(s,r)
+    #         if not os.path.exists(new_path):
+    #             print("{}, step={}, rate={}".format(new_path,s,r))
+    #             continue
+    #         lf.load_checkpoint(new_path)
+    #         pred_scores,search_traces = lf.forward(test_data, verbose=args.save_beam_search_paths)
+    #         test_metrics = src.eval.hits_and_ranks(test_data, pred_scores, search_traces, lf.kg, verbose=True,where="test")
+    #         f.write("step={}, rate={}, MRR={}, conf={}\n".format(s,r,test_metrics["mrr"],test_metrics["conf1"]))
+    # f.close()
 
-    # length = -1
-    # if args.data_dir == "data/umls":
-    #     length = 200
-    # elif args.data_dir == "data/kinship":
-    #     length = 200
-    # elif args.data_dir == "data/WN18RR":
-    #     length = 40
-    # elif "NELL" in args.data_dir:
-    #     length = 30
-    # else:
-    #     print("not exits")
-    #     quit()
-    # x = list(range(length))
-    # model_dir = os.path.split(lf.args.checkpoint_path)[0]
-    # paths = [os.path.join(model_dir,"checkpoint-{}.tar".format(i)) for i in x]
-    # h1s_d = []
-    # mrrs_d = []
-    # c1s_d = []
-    # h1s_t = []
-    # mrrs_t = []
-    # c1s_t = []
-    # for p in paths:
-    #     if not os.path.exists(p):
-    #         break
-    #     lf.load_checkpoint(p)
-    #     pred_scores,search_traces = lf.forward(dev_data, verbose=args.save_beam_search_paths)
-    #     dev_metrics = src.eval.hits_and_ranks(dev_data, pred_scores, search_traces, lf.kg, verbose=True,where="dev")
-    #     h1s_d.append(dev_metrics["hit1"])
-    #     mrrs_d.append(dev_metrics["mrr"])
-    #     c1s_d.append(dev_metrics["conf1"])
-    #     dev_metrics = src.eval.hits_and_ranks(dev_data, pred_scores, search_traces, lf.kg, verbose=True,where="test")
-    #     h1s_t.append(dev_metrics["hit1"])
-    #     mrrs_t.append(dev_metrics["mrr"])
-    #     c1s_t.append(dev_metrics["conf1"])
-    # with open(os.path.join(model_dir,"dev_metrics_list.txt"),"w") as f:
-    #     for i in range(len(h1s_d)):
-    #         f.write("{}\t{}\t{}\t{}\t{}\t{}\n".format(h1s_d[i],mrrs_d[i],c1s_d[i],h1s_t[i],mrrs_t[i],c1s_t[i]))
+    length = -1
+    if args.data_dir == "data/umls":
+        length = 197
+    elif args.data_dir == "data/kinship":
+        length = 150
+    elif args.data_dir == "data/WN18RR":
+        length = 40
+    elif "NELL" in args.data_dir:
+        length = 30
+    elif args.data_dir == "data/FB15K-237":
+        length = 40
+    else:
+        print("not exists")
+        quit()
+    x = list(range(length))
+    model_dir = os.path.split(lf.args.checkpoint_path)[0]
+    paths = [os.path.join(model_dir,"checkpoint-{}.tar".format(i)) for i in x]
+    h1s_d = []
+    mrrs_d = []
+    c1s_d = []
+    h1s_t = []
+    mrrs_t = []
+    c1s_t = []
+    for p in paths:
+        if not os.path.exists(p):
+            break
+        lf.load_checkpoint(p)
+        pred_scores,search_traces = lf.forward(dev_data, verbose=args.save_beam_search_paths)
+        dev_metrics = src.eval.hits_and_ranks(dev_data, pred_scores, search_traces, lf.kg, verbose=True,where="dev")
+        h1s_d.append(dev_metrics["hit1"])
+        mrrs_d.append(dev_metrics["mrr"])
+        c1s_d.append(dev_metrics["conf1"])
+        dev_metrics = src.eval.hits_and_ranks(dev_data, pred_scores, search_traces, lf.kg, verbose=True,where="test")
+        h1s_t.append(dev_metrics["hit1"])
+        mrrs_t.append(dev_metrics["mrr"])
+        c1s_t.append(dev_metrics["conf1"])
+    with open(os.path.join(model_dir,"dev_metrics_list.txt"),"w") as f:
+        for i in range(len(h1s_d)):
+            f.write("{}\t{}\t{}\t{}\t{}\t{}\n".format(h1s_d[i],mrrs_d[i],c1s_d[i],h1s_t[i],mrrs_t[i],c1s_t[i]))
     # x = x[:len()]
     # plt.plot(x,h1s,color="r",label="hit1")
     # plt.plot(x,mrrs,color="g",label="mrr")

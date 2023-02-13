@@ -163,6 +163,8 @@ parser.add_argument('--action_dropout_anneal_interval', type=int, default=1000,
                          'dropout annealing is not used when the value is >= 1000.)')
 parser.add_argument('--num_negative_samples', type=int, default=10,
                     help='Number of negative samples to use for embedding-based methods')
+parser.add_argument('--ips_threshold', type=float, default=0, help='Ips threshold over which the path will be saved as an expert')
+parser.add_argument('--num_expert', type=int, default=0, help='Number of expert paths per relation')
 
 # Reward Shaping
 parser.add_argument('--fn_state_dict_path', type=str, default='',

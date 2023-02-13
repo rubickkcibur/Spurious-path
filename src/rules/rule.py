@@ -31,6 +31,9 @@ class HornRule():
     def get_predicate(self,step):
         return (self.body[step][1],self.body[step+1][0],self.body[step+1][1])
 
+    def get_rel_path(self):
+        return [pair[0] for pair in self.body[1:]]
+
     def compatible(self,predicate,assignment):
         is_e1 = predicate[0] == -1 or predicate[0] == assignment[0]
         is_r = predicate[1] == -1 or predicate[1] == assignment[1]

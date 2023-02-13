@@ -105,7 +105,6 @@ class LFramework(nn.Module):
             if self.run_analysis:
                 rewards = None
                 fns = None
-            
             for example_id in tqdm(range(0, len(train_data), self.batch_size)):
                 self.plot = example_id == 0
                 self.plotid = epoch_id
@@ -114,8 +113,9 @@ class LFramework(nn.Module):
                 mini_batch = train_data[example_id:example_id + self.batch_size]
                 if len(mini_batch) < self.batch_size:
                     continue
-                #here the data is with number format
+                #todo: OOM problem
                 loss = self.loss(mini_batch)
+                torch.cuda.empty_cache()
                 loss['model_loss'].backward()
                 if self.grad_norm > 0:
                     clip_grad_norm_(self.parameters(), self.grad_norm)
@@ -225,6 +225,7 @@ class LFramework(nn.Module):
                 pred_score,search_traces = self.predict(mini_batch, verbose=verbose)
             else:
                 pred_score = self.predict(mini_batch, verbose=verbose)
+            torch.cuda.empty_cache()
             pred_scores.append(pred_score[:mini_batch_size])
             if verbose:
                 paths += search_traces
@@ -290,6 +291,8 @@ class LFramework(nn.Module):
         checkpoint_dict = dict()
         checkpoint_dict['state_dict'] = self.state_dict()
         checkpoint_dict['epoch_id'] = epoch_id
+        if self.args.num_expert > 0:
+            checkpoint_dict["expert"] = self.mdl.relation2experts
 
         out_tar = os.path.join(self.model_dir, 'checkpoint-{}.tar'.format(checkpoint_id))
         if is_best:
@@ -314,6 +317,8 @@ class LFramework(nn.Module):
             if not self.inference:
                 self.start_epoch = checkpoint['epoch_id'] + 1
                 assert (self.start_epoch <= self.num_epochs)
+            if self.args.num_expert > 0:
+                self.mdl.load_experts(checkpoint["expert"])
         else:
             print('=> no checkpoint found at \'{}\''.format(input_file))
 

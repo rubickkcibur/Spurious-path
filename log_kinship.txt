@@ -1,0 +1,1220 @@
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline n/a     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.75 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.75-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline n/a     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.75 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.75-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Policy Gradient Baseline: None
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-n/a-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+* Policy Gradient Baseline: None
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-n/a-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline n/a     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.8 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.8-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline n/a     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.8 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.8-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Policy Gradient Baseline: None
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-n/a-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+* Policy Gradient Baseline: None
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-n/a-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline n/a     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.85 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.85-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline n/a     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.85 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.85-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Policy Gradient Baseline: None
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-n/a-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+* Policy Gradient Baseline: None
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-n/a-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline n/a     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.9 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.9-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline n/a     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.9 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.9-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Policy Gradient Baseline: None
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-n/a-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+* Policy Gradient Baseline: None
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-n/a-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline n/a     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.95 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.95-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline n/a     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.95 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.95-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Policy Gradient Baseline: None
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-n/a-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+* Policy Gradient Baseline: None
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-n/a-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline n/a     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 10 --decrease_rate 0.75 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-10.0-0.75-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline n/a     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 10 --decrease_rate 0.75 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-10.0-0.75-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Policy Gradient Baseline: None
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-n/a-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+* Policy Gradient Baseline: None
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-n/a-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline n/a     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 10 --decrease_rate 0.8 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-10.0-0.8-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline n/a     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 10 --decrease_rate 0.8 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-10.0-0.8-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.75 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.75-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.75 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.75-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.75-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.75-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.8 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.8-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.8 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.8-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.8-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.8-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.85 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.85-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.85 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.85-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.85-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.85-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.9 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.9-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.9 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.9-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.9-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.9-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.95 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.95-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.95 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.95-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar     --conve_state_dict_path model/kinship-conve-RV-xavier-200-200-0.003-32-3-0.2-0.3-0.2-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.75 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.75-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.75-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+=> loading checkpoint 'model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.75-0.1-useConf-3-0.9/model_best.tar'
+1068 triples loaded from data/kinship/dev.triples
+1074 triples loaded from data/kinship/test.triples
+Test set performance:
+Hits@1 = 0.767
+Hits@3 = 0.930
+Hits@5 = 0.957
+Hits@10 = 0.980
+MRR = 0.851
+computing confs
+Path pression (times)@1 = 0.4775
+Path pression@1 = 0.4296
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar     --conve_state_dict_path model/kinship-conve-RV-xavier-200-200-0.003-32-3-0.2-0.3-0.2-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.8 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.8-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.8-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+=> loading checkpoint 'model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.8-0.1-useConf-3-0.9/model_best.tar'
+1068 triples loaded from data/kinship/dev.triples
+1074 triples loaded from data/kinship/test.triples
+Test set performance:
+Hits@1 = 0.779
+Hits@3 = 0.930
+Hits@5 = 0.960
+Hits@10 = 0.982
+MRR = 0.860
+computing confs
+Path pression (times)@1 = 0.4855
+Path pression@1 = 0.4369
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar     --conve_state_dict_path model/kinship-conve-RV-xavier-200-200-0.003-32-3-0.2-0.3-0.2-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.85 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.85-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.85-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+=> loading checkpoint 'model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.85-0.1-useConf-3-0.9/model_best.tar'
+1068 triples loaded from data/kinship/dev.triples
+1074 triples loaded from data/kinship/test.triples
+Test set performance:
+Hits@1 = 0.777
+Hits@3 = 0.939
+Hits@5 = 0.965
+Hits@10 = 0.986
+MRR = 0.862
+computing confs
+Path pression (times)@1 = 0.4938
+Path pression@1 = 0.4454
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar     --conve_state_dict_path model/kinship-conve-RV-xavier-200-200-0.003-32-3-0.2-0.3-0.2-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.9 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.9-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.9-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+=> loading checkpoint 'model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.9-0.1-useConf-3-0.9/model_best.tar'
+1068 triples loaded from data/kinship/dev.triples
+1074 triples loaded from data/kinship/test.triples
+Test set performance:
+Hits@1 = 0.764
+Hits@3 = 0.924
+Hits@5 = 0.952
+Hits@10 = 0.977
+MRR = 0.849
+computing confs
+Path pression (times)@1 = 0.5073
+Path pression@1 = 0.4490
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar     --conve_state_dict_path model/kinship-conve-RV-xavier-200-200-0.003-32-3-0.2-0.3-0.2-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 5 --decrease_rate 0.95 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.95-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.95-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+=> loading checkpoint 'model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-5.0-0.95-0.1-useConf-3-0.9/model_best.tar'
+1068 triples loaded from data/kinship/dev.triples
+1074 triples loaded from data/kinship/test.triples
+Test set performance:
+Hits@1 = 0.767
+Hits@3 = 0.932
+Hits@5 = 0.959
+Hits@10 = 0.980
+MRR = 0.852
+computing confs
+Path pression (times)@1 = 0.5254
+Path pression@1 = 0.4660
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar     --conve_state_dict_path model/kinship-conve-RV-xavier-200-200-0.003-32-3-0.2-0.3-0.2-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 10 --decrease_rate 0.75 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-10.0-0.75-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-10.0-0.75-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+=> loading checkpoint 'model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-10.0-0.75-0.1-useConf-3-0.9/model_best.tar'
+1068 triples loaded from data/kinship/dev.triples
+1074 triples loaded from data/kinship/test.triples
+Test set performance:
+Hits@1 = 0.774
+Hits@3 = 0.927
+Hits@5 = 0.957
+Hits@10 = 0.978
+MRR = 0.855
+computing confs
+Path pression (times)@1 = 0.4983
+Path pression@1 = 0.4481
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar     --conve_state_dict_path model/kinship-conve-RV-xavier-200-200-0.003-32-3-0.2-0.3-0.2-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 10 --decrease_rate 0.8 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-10.0-0.8-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-10.0-0.8-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+=> loading checkpoint 'model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-10.0-0.8-0.1-useConf-3-0.9/model_best.tar'
+1068 triples loaded from data/kinship/dev.triples
+1074 triples loaded from data/kinship/test.triples
+Test set performance:
+Hits@1 = 0.776
+Hits@3 = 0.936
+Hits@5 = 0.958
+Hits@10 = 0.981
+MRR = 0.858
+computing confs
+Path pression (times)@1 = 0.4750
+Path pression@1 = 0.4156
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar     --conve_state_dict_path model/kinship-conve-RV-xavier-200-200-0.003-32-3-0.2-0.3-0.2-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 10 --decrease_rate 0.85 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-10.0-0.85-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-10.0-0.85-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+=> loading checkpoint 'model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-10.0-0.85-0.1-useConf-3-0.9/model_best.tar'
+1068 triples loaded from data/kinship/dev.triples
+1074 triples loaded from data/kinship/test.triples
+Test set performance:
+Hits@1 = 0.771
+Hits@3 = 0.934
+Hits@5 = 0.953
+Hits@10 = 0.979
+MRR = 0.855
+computing confs
+Path pression (times)@1 = 0.4971
+Path pression@1 = 0.4407
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar     --conve_state_dict_path model/kinship-conve-RV-xavier-200-200-0.003-32-3-0.2-0.3-0.2-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 10 --decrease_rate 0.9 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-10.0-0.9-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-10.0-0.9-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+=> loading checkpoint 'model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-10.0-0.9-0.1-useConf-3-0.9/model_best.tar'
+1068 triples loaded from data/kinship/dev.triples
+1074 triples loaded from data/kinship/test.triples
+Test set performance:
+Hits@1 = 0.775
+Hits@3 = 0.930
+Hits@5 = 0.964
+Hits@10 = 0.980
+MRR = 0.857
+computing confs
+Path pression (times)@1 = 0.5261
+Path pression@1 = 0.4785
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar     --conve_state_dict_path model/kinship-conve-RV-xavier-200-200-0.003-32-3-0.2-0.3-0.2-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 10 --decrease_rate 0.95 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-10.0-0.95-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-10.0-0.95-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+=> loading checkpoint 'model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-10.0-0.95-0.1-useConf-3-0.9/model_best.tar'
+1068 triples loaded from data/kinship/dev.triples
+1074 triples loaded from data/kinship/test.triples
+Test set performance:
+Hits@1 = 0.776
+Hits@3 = 0.931
+Hits@5 = 0.955
+Hits@10 = 0.983
+MRR = 0.858
+computing confs
+Path pression (times)@1 = 0.5677
+Path pression@1 = 0.5001
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar     --conve_state_dict_path model/kinship-conve-RV-xavier-200-200-0.003-32-3-0.2-0.3-0.2-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 15 --decrease_rate 0.75 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-15.0-0.75-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-15.0-0.75-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+=> loading checkpoint 'model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-15.0-0.75-0.1-useConf-3-0.9/model_best.tar'
+1068 triples loaded from data/kinship/dev.triples
+1074 triples loaded from data/kinship/test.triples
+Test set performance:
+Hits@1 = 0.760
+Hits@3 = 0.929
+Hits@5 = 0.956
+Hits@10 = 0.984
+MRR = 0.847
+computing confs
+Path pression (times)@1 = 0.5116
+Path pression@1 = 0.4572
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar     --conve_state_dict_path model/kinship-conve-RV-xavier-200-200-0.003-32-3-0.2-0.3-0.2-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 15 --decrease_rate 0.8 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-15.0-0.8-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-15.0-0.8-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+=> loading checkpoint 'model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-15.0-0.8-0.1-useConf-3-0.9/model_best.tar'
+1068 triples loaded from data/kinship/dev.triples
+1074 triples loaded from data/kinship/test.triples
+Test set performance:
+Hits@1 = 0.764
+Hits@3 = 0.935
+Hits@5 = 0.957
+Hits@10 = 0.976
+MRR = 0.853
+computing confs
+Path pression (times)@1 = 0.4988
+Path pression@1 = 0.4460
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar     --conve_state_dict_path model/kinship-conve-RV-xavier-200-200-0.003-32-3-0.2-0.3-0.2-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 15 --decrease_rate 0.85 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-15.0-0.85-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-15.0-0.85-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+=> loading checkpoint 'model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-15.0-0.85-0.1-useConf-3-0.9/model_best.tar'
+1068 triples loaded from data/kinship/dev.triples
+1074 triples loaded from data/kinship/test.triples
+Test set performance:
+Hits@1 = 0.779
+Hits@3 = 0.933
+Hits@5 = 0.959
+Hits@10 = 0.980
+MRR = 0.860
+computing confs
+Path pression (times)@1 = 0.5236
+Path pression@1 = 0.4677
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar     --conve_state_dict_path model/kinship-conve-RV-xavier-200-200-0.003-32-3-0.2-0.3-0.2-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 15 --decrease_rate 0.9 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-15.0-0.9-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-15.0-0.9-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+=> loading checkpoint 'model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-15.0-0.9-0.1-useConf-3-0.9/model_best.tar'
+1068 triples loaded from data/kinship/dev.triples
+1074 triples loaded from data/kinship/test.triples
+Test set performance:
+Hits@1 = 0.769
+Hits@3 = 0.932
+Hits@5 = 0.958
+Hits@10 = 0.973
+MRR = 0.853
+computing confs
+Path pression (times)@1 = 0.5348
+Path pression@1 = 0.4825
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar     --conve_state_dict_path model/kinship-conve-RV-xavier-200-200-0.003-32-3-0.2-0.3-0.2-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 15 --decrease_rate 0.95 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-15.0-0.95-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-15.0-0.95-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+=> loading checkpoint 'model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-15.0-0.95-0.1-useConf-3-0.9/model_best.tar'
+1068 triples loaded from data/kinship/dev.triples
+1074 triples loaded from data/kinship/test.triples
+Test set performance:
+Hits@1 = 0.766
+Hits@3 = 0.915
+Hits@5 = 0.949
+Hits@10 = 0.978
+MRR = 0.847
+computing confs
+Path pression (times)@1 = 0.6140
+Path pression@1 = 0.5293
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar     --conve_state_dict_path model/kinship-conve-RV-xavier-200-200-0.003-32-3-0.2-0.3-0.2-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 20 --decrease_rate 0.75 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-20.0-0.75-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-20.0-0.75-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+=> loading checkpoint 'model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-20.0-0.75-0.1-useConf-3-0.9/model_best.tar'
+1068 triples loaded from data/kinship/dev.triples
+1074 triples loaded from data/kinship/test.triples
+Test set performance:
+Hits@1 = 0.750
+Hits@3 = 0.926
+Hits@5 = 0.953
+Hits@10 = 0.982
+MRR = 0.842
+computing confs
+Path pression (times)@1 = 0.5022
+Path pression@1 = 0.4435
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar     --conve_state_dict_path model/kinship-conve-RV-xavier-200-200-0.003-32-3-0.2-0.3-0.2-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 20 --decrease_rate 0.8 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-20.0-0.8-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-20.0-0.8-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+=> loading checkpoint 'model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-20.0-0.8-0.1-useConf-3-0.9/model_best.tar'
+1068 triples loaded from data/kinship/dev.triples
+1074 triples loaded from data/kinship/test.triples
+Test set performance:
+Hits@1 = 0.774
+Hits@3 = 0.928
+Hits@5 = 0.955
+Hits@10 = 0.980
+MRR = 0.855
+computing confs
+Path pression (times)@1 = 0.5061
+Path pression@1 = 0.4420
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar     --conve_state_dict_path model/kinship-conve-RV-xavier-200-200-0.003-32-3-0.2-0.3-0.2-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 20 --decrease_rate 0.85 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-20.0-0.85-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-20.0-0.85-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+=> loading checkpoint 'model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-20.0-0.85-0.1-useConf-3-0.9/model_best.tar'
+1068 triples loaded from data/kinship/dev.triples
+1074 triples loaded from data/kinship/test.triples
+Test set performance:
+Hits@1 = 0.755
+Hits@3 = 0.927
+Hits@5 = 0.957
+Hits@10 = 0.979
+MRR = 0.845
+computing confs
+Path pression (times)@1 = 0.5272
+Path pression@1 = 0.4631
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar     --conve_state_dict_path model/kinship-conve-RV-xavier-200-200-0.003-32-3-0.2-0.3-0.2-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 20 --decrease_rate 0.9 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-20.0-0.9-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-20.0-0.9-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+=> loading checkpoint 'model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-20.0-0.9-0.1-useConf-3-0.9/model_best.tar'
+1068 triples loaded from data/kinship/dev.triples
+1074 triples loaded from data/kinship/test.triples
+Test set performance:
+Hits@1 = 0.781
+Hits@3 = 0.929
+Hits@5 = 0.954
+Hits@10 = 0.983
+MRR = 0.859
+computing confs
+Path pression (times)@1 = 0.5532
+Path pression@1 = 0.4883
+/home/LAB/jiangcy/reasoning/MultiHopKG
+Executing python3 -m src.experiments     --data_dir data/kinship     --inference     --model point.rs.new.conve     --bandwidth 400     --entity_dim 200     --relation_dim 200     --history_dim 200     --history_num_layers 3     --num_rollouts 20     --num_rollout_steps 2     --bucket_interval 10     --num_epochs 1000     --num_wait_epochs 100     --num_peek_epochs 2     --batch_size 32     --train_batch_size 32     --dev_batch_size 16     --margin -1     --learning_rate 0.001     --baseline curriculum     --grad_norm 5     --emb_dropout_rate 0.3     --ff_dropout_rate 0.1     --action_dropout_rate 0.9     --action_dropout_anneal_interval 1000     --reward_shaping_threshold 0 
+
+    --decrease_offline 0.1          --beta 0.05     --beam_size 128     --ips_threshold 0.9     --num_expert 3     --num_paths_per_entity -1          --use_action_space_bucketing     --use_conf     --support_times     --distmult_state_dict_path model/kinship-distmult-xavier-200-200-0.003-0.3-0.1/model_best.tar     --complex_state_dict_path model/kinship-complex-RV-xavier-200-200-0.003-0.3-0.1/model_best.tar     --conve_state_dict_path model/kinship-conve-RV-xavier-200-200-0.003-32-3-0.2-0.3-0.2-0.1/model_best.tar 
+    --path_search_policy tree     --gpu 0     --decrease_step 20 --decrease_rate 0.95 --checkpoint_path model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-20.0-0.95-0.1-useConf-3-0.9/model_best.tar --save_beam_search_paths
+* Use curriculum training
+Model directory exists: /home/LAB/jiangcy/reasoning/MultiHopKG/model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-20.0-0.95-0.1-useConf-3-0.9
+** Create point.rs.new.conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+Sanity check: maximum out degree: 174
+Sanity check: 17088 facts in knowledge graph
+Sanity check: 17088 facts saved in action table
+Vectorizing action spaces bucket 1...
+Vectorizing action spaces bucket 17...
+Vectorizing action spaces bucket 18...
+Vectorizing action spaces bucket 16...
+Vectorizing action spaces bucket 15...
+** Create conve knowledge graph **
+Sanity check: 106 entities loaded
+Sanity check: 1 types loaded
+Sanity check: 53 relations loaded
+point.rs.new.conve module created
+=> loading checkpoint 'model/kinship-point.rs.new.conve-xavier-curriculum-200-200-3-0.001-0.3-0.1-0.9-400-0.05-2-20.0-0.95-0.1-useConf-3-0.9/model_best.tar'
+1068 triples loaded from data/kinship/dev.triples
+1074 triples loaded from data/kinship/test.triples
+Test set performance:
+Hits@1 = 0.729
+Hits@3 = 0.909
+Hits@5 = 0.949
+Hits@10 = 0.977
+MRR = 0.826
+computing confs
+Path pression (times)@1 = 0.6105
+Path pression@1 = 0.5340
